@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<title>Antojitos Mexicanos</title>
+
+<style>
+body{
+    font-family:Arial,sans-serif;margin:0;
+    background:#e8f3f8;color:#4b174c;
+}
+header,section,footer{
+    text-align:center;padding:25px;
+    max-width:800px;margin:auto;
+}
+header{
+    border-bottom:2px solid #4b174c;
+}
+header img{width:130px}
+h1{margin:8px;font-size:30px}
+h2{font-size:22px}
+p{line-height:1.5}
+
+button{
+    padding:9px 16px;margin:6px;
+    border:0;border-radius:6px;
+    background:#4b174c;color:white;
+    cursor:pointer;
+}
+button:hover{opacity:.8}
+
+.galeria img{
+    width:320px;height:210px;
+    max-width:90%;object-fit:cover;
+    border-radius:8px;
+}
+.galeria p,.texto p{
+    max-width:650px;margin:12px auto;
+}
+
+.formulario{
+    max-width:600px;
+}
+input,textarea{
+    width:85%;padding:10px;margin:6px;
+    border:1px solid #aaa;border-radius:5px;
+    font-size:15px;
+}
+textarea{height:80px}
+
+#resultado,#mensajeFormulario{
+    font-weight:bold;
+}
+
+footer{
+    border-top:2px solid #4b174c;
+}
+</style>
+</head>
+
+<body id="pagina">
+
+<header>
+    <img src="PLATO.webp" alt="Plato de comida">
+    <h1>PLATOS</h1>
+    <h1>ANTOJITOS MEXICANOS</h1>
+    <button onclick="cambiarModo()">Modo Claro / Oscuro</button>
+</header>
+
+<section class="galeria">
+    <h2>Galería de platillos</h2>
+
+    <img id="imagenPlatillo" src="flautas.jpg">
+
+    <h2 id="nombrePlatillo">Flautas</h2>
+
+    <p id="descripcionPlatillo">
+        Las flautas son tortillas rellenas de carne
+        que se fríen hasta quedar crujientes.
+    </p>
+
+    <button onclick="anterior()">Anterior</button>
+    <button onclick="siguiente()">Siguiente</button>
+</section>
+
+<section class="texto">
+    <h2>Gastronomía mexicana</h2>
+
+    <p>
+        La gastronomía mexicana destaca por su variedad
+        de ingredientes, sabores y técnicas tradicionales.
+    </p>
+
+    <h2>Ingredientes tradicionales</h2>
+
+    <p>
+        El maíz, chile, frijol y aguacate son algunos
+        de los ingredientes característicos de México.
+    </p>
+
+    <h2>Tradición</h2>
+
+    <p>
+        Los antojitos mexicanos forman parte de la cultura
+        y las costumbres de diferentes regiones del país.
+    </p>
+</section>
+
+<section class="quiz">
+    <h2>Quiz</h2>
+
+    <p>¿Cuál es un ingrediente tradicional mexicano?</p>
+
+    <button onclick="responderQuiz('maiz')">Maíz</button>
+    <button onclick="responderQuiz('trigo')">Trigo</button>
+    <button onclick="responderQuiz('avena')">Avena</button>
+
+    <p id="resultado"></p>
+</section>
+
+<section class="formulario">
+    <h2>Contacto</h2>
+
+    <form onsubmit="validarFormulario(event)">
+        <input id="nombre" placeholder="Nombre">
+        <input id="correo" type="email" placeholder="Correo electrónico">
+        <textarea id="mensaje" placeholder="Escribe tu mensaje"></textarea>
+        <br>
+        <button>Enviar</button>
+    </form>
+
+    <p id="mensajeFormulario"></p>
+</section>
+
+<footer>
+    <p>Página informativa sobre los antojitos mexicanos.</p>
+</footer>
+
+<script>
+var fotos=[
+    "flautas.jpg",
+    "ccc7f66d4fc283424f2854299fc4662c.png",
+    "antojitos-mexicanos-15-septiembre.jpg",
+    "antojitos-5.jpg"
+];
+
+var nombres=[
+    "Flautas",
+    "Antojitos Mexicanos",
+    "Comida Mexicana",
+    "Antojitos Tradicionales"
+];
+
+var descripciones=[
+    "Las flautas son tortillas rellenas de carne que se fríen hasta quedar crujientes.",
+    "Los antojitos mexicanos son preparaciones tradicionales de la gastronomía del país.",
+    "La comida mexicana destaca por sus ingredientes, sabores y técnicas.",
+    "Los antojitos tradicionales representan las costumbres de diferentes regiones."
+];
+
+var numero=0;
+
+function cambiarInformacion(){
+    imagenPlatillo.src=fotos[numero];
+    nombrePlatillo.innerHTML=nombres[numero];
+    descripcionPlatillo.innerHTML=descripciones[numero];
+}
+
+function siguiente(){
+    numero++;
+    if(numero>=fotos.length) numero=0;
+    cambiarInformacion();
+}
+
+function anterior(){
+    numero--;
+    if(numero<0) numero=fotos.length-1;
+    cambiarInformacion();
+}
+
+function cambiarModo(){
+    var pagina=document.getElementById("pagina");
+
+    if(pagina.style.backgroundColor=="black"){
+        pagina.style.backgroundColor="#e8f3f8";
+        pagina.style.color="#4b174c";
+    }else{
+        pagina.style.backgroundColor="black";
+        pagina.style.color="white";
+    }
+}
+
+function responderQuiz(respuesta){
+    if(respuesta=="maiz")
+        resultado.innerHTML="¡Correcto! El maíz es un ingrediente tradicional.";
+    else
+        resultado.innerHTML="Respuesta incorrecta. Intenta nuevamente.";
+}
+
+function validarFormulario(event){
+    event.preventDefault();
+
+    if(nombre.value==""||correo.value==""||mensaje.value=="")
+        mensajeFormulario.innerHTML="Completa todos los campos.";
+    else
+        mensajeFormulario.innerHTML="Formulario enviado correctamente.";
+}
+</script>
+
+</body>
+</html>
